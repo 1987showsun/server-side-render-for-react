@@ -5,14 +5,14 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from "react-helmet";
-import { useTranslation } from 'react-i18next';
+import { useIntl, FormattedMessage } from "react-intl";
 
 // Actions
 import { homeAction } from '../actions/home';
 
 const Home = ({ dispatch, members=[] }) => {
 
-  const { t } = useTranslation();
+  const intl = useIntl();
 
   useEffect(() => {
     dispatch( homeAction() );
@@ -23,7 +23,11 @@ const Home = ({ dispatch, members=[] }) => {
       <Helmet>
         <title>123</title>
       </Helmet>
-      { t('test') }
+      <FormattedMessage id="home.title" />
+      <FormattedMessage
+        id="games.addedOn"
+        values={{ addedOn: '2020-01-01', aaaa: 'test' }}
+      />
       {
         members.map(item => {
           return(

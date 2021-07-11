@@ -10,10 +10,11 @@ import Routes from '../shared/routes';
 import renderer from './render';
 import createStore from '../shared/redux/store';
 import path from 'path';
+import { determineUserLang, dir } from "../common/i18n";
 
 const app = express();
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.static('dist'));
@@ -24,12 +25,16 @@ app.get('*', (req, res) => {
   
   const store = createStore();
   const { dispatch } = store;
-  const routes = matchRoutes(Routes, req.path);
-
-  const promises = routes.map(({ route }) => {
+  const lang = determineUserLang(req.acceptsLanguages(), req.path);
+  const routes = matchRoutes(Routes, req.path.replace(`/${lang}`,''));
+  const promises = routes.map(({route} ) => {
       return route.component.loadData!=undefined? route.component.loadData(dispatch):null;
     },
   );
+
+  if (req.path.trim() === "/") {
+    res.redirect(`${lang}`);
+  }
 
   Promise.all(promises).then(() => {
     const content = renderer(req, store);

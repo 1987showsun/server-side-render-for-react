@@ -4,14 +4,15 @@
  */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FormattedMessage } from "react-intl";
 
 const Header = () => (
   <ul>
     <li>
-      <Link to="/">Home</Link>
+      <Link to="/"><FormattedMessage id="nav.home"/></Link>
     </li>
     <li>
-      <Link to="/about">Other page</Link>
+      <Link to="/about"><FormattedMessage id="nav.about"/></Link>
     </li>
   </ul>
 );

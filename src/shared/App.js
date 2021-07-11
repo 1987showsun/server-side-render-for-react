@@ -1,31 +1,35 @@
-/*
- *   Copyright (c) 2021 
- *   All rights reserved.
- */
 import React from 'react';
+import { Switch, Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { renderRoutes } from 'react-router-config';
 import Header from './components/header';
-
-// Images
-import test_img from './public/images/980x.jpg';
+import routes from './routes';
+import { IntlProvider } from "react-intl";
+import { defaultLang } from "../common/i18n";
+import messages from "../common/i18n/messages";
 
 // Stylesheets
 import './public/stylesheets/style.scss';
 
-const App = ({ route }) => (
-  <div>
-    <Header />
-    {renderRoutes(route.routes)}
-  </div>
+const App = ({ lang }) => (
+    <IntlProvider
+        locale={lang}
+        messages={messages[lang]}
+        defaultLocale={defaultLang}
+    >
+        <Header />
+        <Switch>
+            { 
+                routes.map((item, i) => {
+                    const { exact=false, path, component } = item;
+                    return <Route key={i} exact={exact} path={`${path}`} component={component}/>
+                }) 
+            }
+        </Switch>
+    </IntlProvider>
 );
 
-App.propTypes = {
-  route: PropTypes.objectOf(PropTypes.any),
-};
+App.prototype = {
+    lang: PropTypes.string
+}
 
-App.defaultProps = {
-  route: null,
-};
-
-export default { component: App };
+export default App;

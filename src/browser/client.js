@@ -4,22 +4,25 @@
  */
 import React, { Suspense } from 'react';
 import { hydrate } from 'react-dom';
-import { BrowserRouter } from 'react-router-dom';
-import { renderRoutes } from 'react-router-config';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import Routes from '../shared/routes';
+import { determineUserLang } from "../common/i18n";
 import createStore from '../shared/redux/store';
-import { useSSR } from 'react-i18next';
 
-import "./i18n";
+// Components
+import App from '../shared/app';
 
-const  InitSSR = ({ initialI18nStore, initialLanguage }) => {
-  useSSR(initialI18nStore, initialLanguage);
+const lang = determineUserLang(
+  navigator.languages || [],
+  window.location.pathname,
+);
+
+const  Index = () => {
   return (
     <Suspense fallback={<span>Loading...</span>}>
       <Provider store={createStore()}>
-        <BrowserRouter>
-          {renderRoutes(Routes)}
+        <BrowserRouter basename={`/${lang}`}>
+          <Route render={() => <App lang={lang} />} />
         </BrowserRouter>
       </Provider>
     </Suspense>
@@ -27,6 +30,6 @@ const  InitSSR = ({ initialI18nStore, initialLanguage }) => {
 }
 
 hydrate(
-  <InitSSR />,
+  <Index />,
   document.getElementById('root')
 );

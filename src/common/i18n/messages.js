@@ -7,7 +7,7 @@ export default {
     "home.lead": "Vote with thousands of other players on games and find your favourite!",
     "home.c2a": "Check out the games!",
     "games.addedOn": "Added {addedOn} {aaaa} sdsdsdsdwdw",
-    "nav.home": "HOME",
+    "nav.home": "HOMEasdsd",
     "nav.about": "ABOUT",
   },
   ar: {

@@ -21,7 +21,7 @@ const Home = ({ dispatch, members=[] }) => {
   return(
     <>
       <Helmet>
-        <title>123</title>
+        <title>123456</title>
       </Helmet>
       <FormattedMessage id="home.title" />
       <FormattedMessage

@@ -4,20 +4,18 @@
  */
 
 const path = require('path');
-const CopyWebpackPlugin = require("copy-webpack-plugin");
-const CompressionPlugin = require("compression-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 
 const NODE_ENV = process.env.NODE_ENV;
-console.log( NODE_ENV );
 
-const client_config = {
+const CLIENT_CONFIG = {
   mode: NODE_ENV,
   entry: ['@babel/polyfill', './src/browser/client.js'],
   output: {
     path: path.resolve(__dirname, './dist'),
-    filename: 'bundle.js'
+    filename: '[name].js',
   },
   module: {
     rules: [
@@ -26,10 +24,12 @@ const client_config = {
         use: [
           {
             loader: 'url-loader',
-            options: { limit: 10000000 }
+            options: {
+              limit: 10000000,
+            },
           },
-          "image-webpack-loader"
-        ]
+          'image-webpack-loader',
+        ],
       },
       {
         test: /.js$/,
@@ -46,7 +46,7 @@ const client_config = {
           MiniCssExtractPlugin.loader,
           'css-loader',
           'postcss-loader',
-          'sass-loader'
+          'sass-loader',
         ],
       },
     ],
@@ -57,20 +57,46 @@ const client_config = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: "/css/[name].css"
+      filename: '/css/[name].css',
     }),
     new CopyWebpackPlugin({
       patterns: [
-        { 
-          from: "./src/server/assets", 
-          to  : "assets"
-        }
-      ]
+        {
+          from: './src/server/assets',
+          to: 'assets',
+          noErrorOnMissing: true,
+        },
+      ],
     }),
-  ]
+  ],
+  optimization: {
+    splitChunks: {
+      chunks: 'initial',
+      minChunks: 1,
+      maxAsyncRequests: 6,
+      maxInitialRequests: 4,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          enforce: true,
+          name: 'modules',
+        },
+        default: {
+          minChunks: 1,
+          priority: -20,
+          reuseExistingChunk: true,
+        },
+      },
+    },
+  },
+  performance: {
+    hints: false,
+  },
 };
 
-const server_config = {
+const SERVER_CONFIG = {
   mode: NODE_ENV,
   target: 'node',
   entry: ['@babel/polyfill', './src/server/server.js'],
@@ -78,7 +104,7 @@ const server_config = {
   output: {
     path: path.resolve(__dirname, './'),
     filename: 'server.js',
-    libraryTarget: "commonjs2"
+    libraryTarget: 'commonjs2',
   },
   module: {
     rules: [
@@ -87,10 +113,12 @@ const server_config = {
         use: [
           {
             loader: 'url-loader',
-            options: { limit: 10000000 }
+            options: {
+              limit: 10000000,
+            },
           },
-          "image-webpack-loader"
-        ]
+          'image-webpack-loader',
+        ],
       },
       {
         test: /.js$/,
@@ -105,11 +133,11 @@ const server_config = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           'css-loader',
-          'sass-loader'
-        ]
-      }
+          'sass-loader',
+        ],
+      },
     ],
   },
 };
 
-module.exports = [client_config, server_config];
+module.exports = [CLIENT_CONFIG, SERVER_CONFIG];

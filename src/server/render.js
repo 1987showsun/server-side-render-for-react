@@ -32,7 +32,8 @@ export default (req, store) => {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script src="../bundle.js"></script>
+        <script src="../../../../../main.js"></script>
+        <script src="../../../../../modules.js"></script>
         <script>window.__initialData__ = ${serialize(initialData)}</script>
       </body>
     </html>

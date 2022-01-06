@@ -14,7 +14,7 @@ import { determineUserLang, dir } from "../common/i18n";
 
 const app = express();
 
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 5001;
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.static('dist'));

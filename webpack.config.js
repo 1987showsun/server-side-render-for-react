@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2021 
+ *   Copyright (c) 2021
  *   All rights reserved.
  */
 
@@ -8,7 +8,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const webpackNodeExternals = require('webpack-node-externals');
 
-const NODE_ENV = process.env.NODE_ENV;
+const { NODE_ENV } = process.env;
 
 const CLIENT_CONFIG = {
   mode: NODE_ENV,
@@ -69,28 +69,28 @@ const CLIENT_CONFIG = {
       ],
     }),
   ],
-  optimization: {
-    splitChunks: {
-      chunks: 'initial',
-      minChunks: 1,
-      maxAsyncRequests: 6,
-      maxInitialRequests: 4,
-      automaticNameDelimiter: '~',
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10,
-          enforce: true,
-          name: 'modules',
-        },
-        default: {
-          minChunks: 1,
-          priority: -20,
-          reuseExistingChunk: true,
-        },
-      },
-    },
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'initial',
+  //     minChunks: 1,
+  //     maxAsyncRequests: 6,
+  //     maxInitialRequests: 4,
+  //     automaticNameDelimiter: '~',
+  //     cacheGroups: {
+  //       vendors: {
+  //         test: /[\\/]node_modules[\\/]/,
+  //         priority: -10,
+  //         enforce: true,
+  //         name: 'modules',
+  //       },
+  //       default: {
+  //         minChunks: 1,
+  //         priority: -20,
+  //         reuseExistingChunk: true,
+  //       },
+  //     },
+  //   },
+  // },
   performance: {
     hints: false,
   },

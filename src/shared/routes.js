@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2021 
+ *   Copyright (c) 2021
  *   All rights reserved.
  */
 import Home from './pages/Home';
@@ -9,11 +9,9 @@ export default [
   {
     component: Home,
     path: '/',
-    exact: true
   },
   {
     component: About,
     path: '/about',
-    exact: true
-  }
+  },
 ];

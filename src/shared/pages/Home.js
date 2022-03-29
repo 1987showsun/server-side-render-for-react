@@ -4,18 +4,17 @@
  */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { useIntl, FormattedMessage } from 'react-intl';
 
 // Actions
 import { homeAction } from '../actions/home';
 
-const Home = ({
-  dispatch,
-  members = [],
-}) => {
+const Home = () => {
   const intl = useIntl();
+  const dispatch = useDispatch();
+  const members = useSelector(state => state.home.list);
 
   useEffect(() => {
     dispatch(homeAction());
@@ -46,10 +45,6 @@ const Home = ({
 
 Home.loadData = dispatch => dispatch(homeAction());
 
-const mapStateToProps = state => ({
-  members: state.home.list,
-});
-
 Home.defaultProps = {
   dispatch: () => {},
   members: [],
@@ -57,7 +52,7 @@ Home.defaultProps = {
 
 Home.propTypes = {
   dispatch: PropTypes.func,
-  members: PropTypes.arrayOf,
+  members: PropTypes.array,
 };
 
-export default connect(mapStateToProps)(Home);
+export default Home;

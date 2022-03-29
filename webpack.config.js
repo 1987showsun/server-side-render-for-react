@@ -57,7 +57,7 @@ const CLIENT_CONFIG = {
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: '/css/[name].css',
+      filename: 'css/[name].css',
     }),
     new CopyWebpackPlugin({
       patterns: [

@@ -4,11 +4,12 @@
  */
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { StaticRouter, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
+import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import serialize from 'serialize-javascript';
-import App from '../shared/app';
+import App from '../shared/App';
 import { determineUserLang } from '../common/i18n';
 
 export default (req, store) => {
@@ -18,7 +19,9 @@ export default (req, store) => {
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter context={context} location={req.path} basename={`/${lang}`}>
-        <Route render={() => <App lang={lang} />} />
+        <Routes>
+          <Route path="/*" element={<App lang={lang} />} />
+        </Routes>
       </StaticRouter>
     </Provider>,
   );

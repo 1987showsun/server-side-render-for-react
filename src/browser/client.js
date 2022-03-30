@@ -4,7 +4,7 @@
  */
 import React, { Suspense } from 'react';
 import { hydrate } from 'react-dom';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, useRoutes, Outlet, Routes, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { determineUserLang } from '../common/i18n';
 import createStore from '../shared/redux/store';
@@ -12,22 +12,36 @@ import createStore from '../shared/redux/store';
 // Components
 import App from '../shared/App';
 
+import test from '../shared/routes';
+
 const lang = determineUserLang(
   navigator.languages || [],
   window.location.pathname,
 );
 
-const Index = () => (
-  <Suspense fallback={<span>Loading...</span>}>
-    <Provider store={createStore()}>
-      <BrowserRouter basename={`/${lang}`}>
-        <Routes>
-          <Route path="/*" element={<App lang={lang} />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
-  </Suspense>
-);
+const Component1 = () => {
+  return <>Component 1</>;
+};
+
+const Component2 = () => {
+  return <>Component 2</>;
+};
+
+const App1 = ({lang}) => {
+  return useRoutes(test.forSPARouters(lang));
+}
+
+const Index = () => {
+  return(
+    <Suspense fallback={<span>Loading...</span>}>
+      <Provider store={createStore()}>
+        <Router basename={`/${lang}`}>
+          <App1 lang={lang}/>
+        </Router>
+      </Provider>
+    </Suspense>
+  );
+};
 
 hydrate(
   <Index />,

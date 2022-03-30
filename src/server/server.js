@@ -26,7 +26,7 @@ app.get('*', (req, res) => {
   const store = createStore();
   const { dispatch } = store;
   const lang = determineUserLang(req.acceptsLanguages(), req.path);
-  const routes = matchRoutes(Routes, req.path.replace(`/${lang}`,''));
+  const routes = matchRoutes(Routes.forSSRRouters, req.path.replace(`/${lang}`,''));
   const promises = routes.map(({route} ) => {
       return route.component.loadData!=undefined? route.component.loadData(dispatch):null;
     },

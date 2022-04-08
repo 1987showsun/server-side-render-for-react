@@ -3,8 +3,8 @@
  *   All rights reserved.
  */
 import React, { Suspense } from 'react';
-import { hydrate } from 'react-dom';
-import { BrowserRouter as Router, useRoutes, Outlet, Routes, Route } from 'react-router-dom';
+import ReactDom from 'react-dom/client';
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { determineUserLang } from '../common/i18n';
 import createStore from '../shared/redux/store';
@@ -18,14 +18,6 @@ const lang = determineUserLang(
   navigator.languages || [],
   window.location.pathname,
 );
-
-const Component1 = () => {
-  return <>Component 1</>;
-};
-
-const Component2 = () => {
-  return <>Component 2</>;
-};
 
 const App1 = ({lang}) => {
   return useRoutes(test.forSPARouters(lang));
@@ -43,7 +35,5 @@ const Index = () => {
   );
 };
 
-hydrate(
-  <Index />,
-  document.getElementById('root'),
-);
+const root = ReactDom.createRoot(document.getElementById('root'));
+root.render(<Index />);

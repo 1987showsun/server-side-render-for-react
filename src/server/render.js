@@ -1,10 +1,12 @@
+/* eslint-disable react/jsx-indent */
 /*
  *   Copyright (c) 2021
  *   All rights reserved.
  */
+
 import React from 'react';
 import { renderToString } from 'react-dom/server';
-import { useRoutes, Routes, Outlet, Route } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -13,9 +15,7 @@ import serialize from 'serialize-javascript';
 import { determineUserLang } from '../common/i18n';
 import test from '../shared/routes';
 
-const App1 = ({ lang }) => {
-  return useRoutes(test.forSPARouters(lang));
-}
+const App1 = ({ lang }) => useRoutes(test.forSPARouters(lang));
 
 export default (req, store) => {
   const context = {};
@@ -24,15 +24,15 @@ export default (req, store) => {
   const content = renderToString(
     <Provider store={store}>
       <StaticRouter context={context} location={req.path} basename={`/${lang}`}>
-          <App1 lang={lang}/>
+          <App1 lang={lang} />
       </StaticRouter>
     </Provider>,
   );
 
   const helmet = Helmet.renderStatic();
   const helmetToString = Object.keys(helmet)
-    .filter(key => helmet[key].toString() !== '')
-    .map(item => helmet[item].toString());
+    .filter((key) => helmet[key].toString() !== '')
+    .map((item) => helmet[item].toString());
 
   return (`
     <html>

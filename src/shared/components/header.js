@@ -14,6 +14,9 @@ const Header = () => (
     <li>
       <Link to="/about"><FormattedMessage id="nav.about"/></Link>
     </li>
+    <li>
+      <Link to="/test"><FormattedMessage id="nav.test"/></Link>
+    </li>
   </ul>
 );
 

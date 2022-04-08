@@ -39,11 +39,15 @@ const forSPARouters = (lang) => [
               },
             ],
           },
+          {
+            path: '*',
+            element: <Navigate to="/test/test1" replace="true" />,
+          },
         ],
       },
       {
         path: '*',
-        element: <Navigate to="/" />,
+        element: <Navigate to="/" replace="true" />,
       },
     ],
   },

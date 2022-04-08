@@ -3,14 +3,14 @@
  *   All rights reserved.
  */
 import express from 'express';
-import cors from "cors";
-import logger from "morgan";
+import cors from 'cors';
+import logger from 'morgan';
+import path from 'path';
 import { matchRoutes } from 'react-router-config';
 import Routes from '../shared/routes';
 import renderer from './render';
 import createStore from '../shared/redux/store';
-import path from 'path';
-import { determineUserLang, dir } from "../common/i18n";
+import { determineUserLang } from '../common/i18n';
 
 const app = express();
 
@@ -22,17 +22,16 @@ app.set('view engine', 'ejs');
 app.set('/server/views', path.join(__dirname, 'views'));
 
 app.get('*', (req, res) => {
-  
   const store = createStore();
   const { dispatch } = store;
   const lang = determineUserLang(req.acceptsLanguages(), req.path);
-  const routes = matchRoutes(Routes.forSSRRouters, req.path.replace(`/${lang}`,''));
-  const promises = routes.map(({route} ) => {
-      return route.component.loadData!=undefined? route.component.loadData(dispatch):null;
-    },
-  );
+  const routes = matchRoutes(Routes.forSSRRouters, req.path);
+  // eslint-disable-next-line arrow-body-style
+  const promises = routes.map(({ route }) => {
+    return route.component.loadData !== undefined ? route.component.loadData(dispatch) : null;
+  });
 
-  if (req.path.trim() === "/") {
+  if (req.path.trim() === '/') {
     res.redirect(`${lang}`);
   }
 

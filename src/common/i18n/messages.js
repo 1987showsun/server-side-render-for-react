@@ -1,3 +1,5 @@
+/* eslint-disable no-dupe-keys */
+/* eslint-disable quotes */
 export default {
   en: {
     "app.title": "Boardaki",
@@ -9,6 +11,7 @@ export default {
     "games.addedOn": "Added {addedOn} {aaaa} sdsdsdsdwdw",
     "nav.home": "HOMEasdsd",
     "nav.about": "ABOUT",
+    "nav.test": "TEST",
   },
   ar: {
     "app.title": "بورداكي",
@@ -20,5 +23,6 @@ export default {
     "games.addedOn": "أضيف {addedOn} {aaaa} sdsdsdsdwdw",
     "nav.home": "首頁",
     "nav.about": "關於我",
+    "nav.test": "測試",
   },
 };

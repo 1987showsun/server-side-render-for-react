@@ -7,7 +7,7 @@ COPY package*.json ./
 COPY webpack.config.js ./
 RUN npm i
 
-EXPOSE 5000
+EXPOSE 5001
 
 CMD ["npm", "run", "dev"]
 

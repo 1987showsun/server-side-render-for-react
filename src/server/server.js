@@ -1,5 +1,5 @@
 /*
- *   Copyright (c) 2021 
+ *   Copyright (c) 2021
  *   All rights reserved.
  */
 import express from 'express';
@@ -10,7 +10,7 @@ import { matchRoutes } from 'react-router-config';
 import Routes from '../shared/routes';
 import renderer from './render';
 import createStore from '../shared/redux/store';
-import { determineUserLang } from '../common/i18n';
+import { determineUserLang, supportedLangs, defaultLang } from '../common/i18n';
 
 const app = express();
 
@@ -21,7 +21,7 @@ app.use(express.static('dist'));
 app.set('view engine', 'ejs');
 app.set('/server/views', path.join(__dirname, 'views'));
 
-app.get('*', (req, res) => {
+app.get('/*', (req, res) => {
   const store = createStore();
   const { dispatch } = store;
   const lang = determineUserLang(req.acceptsLanguages(), req.path);
@@ -33,6 +33,10 @@ app.get('*', (req, res) => {
 
   if (req.path.trim() === '/') {
     res.redirect(`${lang}`);
+  } else {
+    const pathToArray = req.path.split('/').filter((str) => str !== '');
+    console.log(pathToArray);
+    console.log(Object.keys(supportedLangs), lang);
   }
 
   Promise.all(promises).then(() => {

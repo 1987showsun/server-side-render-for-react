@@ -48,7 +48,7 @@ export default (req, store) => {
       </head>
       <body>
         <div id="root">${content}</div>
-        <script src="../../../../../main.js"></script>
+        <script defer src="../../../../../main.js"></script>
         <script>window.__initialData__ = ${serialize(initialData)}</script>
       </body>
     </html>

@@ -14,17 +14,17 @@ import messages from '../common/i18n/messages';
 // Stylesheets
 import './public/stylesheets/style.scss';
 
-const App = ({ lang="" }) => {
-  return(
+function App({ lang = '' }) {
+  return (
     <IntlProvider
-      locale={lang}
+      locale="en"
       messages={messages[lang]}
       defaultLocale={defaultLang}
-      >
-        <Header />
-        <Outlet />
+    >
+      <Header />
+      <Outlet />
     </IntlProvider>
-  )
+  );
 }
 
 App.prototype = {

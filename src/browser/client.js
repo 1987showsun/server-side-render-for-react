@@ -19,21 +19,19 @@ const lang = determineUserLang(
   window.location.pathname,
 );
 
-const App1 = ({lang}) => {
-  return useRoutes(test.forSPARouters(lang));
-}
+const App1 = ({ lang }) => useRoutes(test.forSPARouters(lang));
 
-const Index = () => {
-  return(
+function Index() {
+  return (
     <Suspense fallback={<span>Loading...</span>}>
       <Provider store={createStore()}>
         <Router basename={`/${lang}`}>
-          <App1 lang={lang}/>
+          <App1 lang={lang} />
         </Router>
       </Provider>
     </Suspense>
   );
-};
+}
 
 const root = ReactDom.createRoot(document.getElementById('root'));
 root.render(<Index />);

@@ -25,4 +25,16 @@ export default {
     "nav.about": "關於我",
     "nav.test": "測試",
   },
+  tw: {
+    "app.title": "بورداكي",
+    "nav.home": "الرئيسية",
+    "nav.games": "الألعاب",
+    "home.title": "أجد لعبتك التالية",
+    "home.lead": "قم بالتصويت مع الآلاف من اللاعبين الآخرين على الألعاب وابحث عن المفضلة لديك!",
+    "home.c2a": "تحقق من الألعاب!",
+    "games.addedOn": "أضيف {addedOn} {aaaa} sdsdsdsdwdw",
+    "nav.home": "tw_首頁",
+    "nav.about": "tw_關於我",
+    "nav.test": "tw_測試",
+  },
 };
